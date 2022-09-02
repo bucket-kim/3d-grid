@@ -24,5 +24,9 @@ export default class World {
     });
   }
 
-  update() {}
+  update() {
+    if (this.gridbox) {
+      this.gridbox.update();
+    }
+  }
 }

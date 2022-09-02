@@ -22,7 +22,7 @@ export default class Camera {
       1000
     );
 
-    this.instance.position.set(0, 0, 8);
+    this.instance.position.set(0, 0, 15);
     this.scene.add(this.instance);
 
     if (this.debug.active) {
