@@ -8,6 +8,7 @@ export default class Camera {
     this.sizes = this.experience.sizes;
     this.scene = this.experience.scene;
     this.canvas = this.experience.canvas;
+    this.debug = this.experience.debug;
 
     this.setInstance();
     this.setOrbitControl();
@@ -21,8 +22,15 @@ export default class Camera {
       1000
     );
 
-    this.instance.position.set(6, 4, 8);
+    this.instance.position.set(0, 0, 8);
     this.scene.add(this.instance);
+
+    if (this.debug.active) {
+      this.debugFolder = this.debug.ui.addFolder("camera");
+      this.debugFolder.add(this.instance.position, "y", -10, 10, 0.01);
+      this.debugFolder.add(this.instance.position, "x", -10, 10, 0.01);
+      this.debugFolder.add(this.instance.position, "z", 0, 20, 0.01);
+    }
   }
 
   setOrbitControl() {
