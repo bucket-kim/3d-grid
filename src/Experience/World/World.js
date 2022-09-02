@@ -1,8 +1,7 @@
 import * as THREE from "three";
 import Experience from "../Experience.js";
 import Environment from "./Environment.js";
-import Floor from "./Floor.js";
-import Fox from "./Fox.js";
+import Gridbox from "./Gridbox.js";
 
 export default class World {
   constructor() {
@@ -20,15 +19,10 @@ export default class World {
 
     this.resources.on("ready", () => {
       // setup
-      this.floor = new Floor();
-      this.fox = new Fox();
       this.environment = new Environment();
+      this.gridbox = new Gridbox();
     });
   }
 
-  update() {
-    if (this.fox) {
-      this.fox.update();
-    }
-  }
+  update() {}
 }
