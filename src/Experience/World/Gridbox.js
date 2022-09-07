@@ -33,7 +33,7 @@ export default class Gridbox {
     });
 
     this.plane.mesh = new THREE.Mesh(this.plane.geometry, this.plane.material);
-    this.plane.mesh.position.z = -25;
+    this.plane.mesh.position.z = -30;
 
     this.plane = this.scene.add(this.plane.mesh);
 
@@ -43,14 +43,14 @@ export default class Gridbox {
     this.plane003 = {};
     this.plane004 = {};
 
-    this.plane001.geometry = new THREE.PlaneGeometry(100, 10);
+    this.plane001.geometry = new THREE.PlaneGeometry(50, 10);
     this.plane001.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {
           value: 0,
         },
         uLineX: {
-          value: 50,
+          value: 20,
         },
         uLineY: {
           value: 20,
@@ -69,7 +69,7 @@ export default class Gridbox {
     );
     this.plane001.mesh.rotation.y = Math.PI * 0.5;
     this.plane001.mesh.position.x = -5;
-    this.plane001.mesh.position.z = -25;
+    this.plane001.mesh.position.z = -15;
 
     this.plane002.mesh = new THREE.Mesh(
       this.plane001.geometry,
@@ -77,7 +77,7 @@ export default class Gridbox {
     );
     this.plane002.mesh.rotation.y = Math.PI * 0.5;
     this.plane002.mesh.position.x = 5;
-    this.plane002.mesh.position.z = -25;
+    this.plane002.mesh.position.z = -15;
 
     this.plane003.mesh = new THREE.Mesh(
       this.plane001.geometry,
@@ -86,7 +86,7 @@ export default class Gridbox {
     this.plane003.mesh.rotation.x = Math.PI * 0.5;
     this.plane003.mesh.rotation.z = -Math.PI * 0.5;
     this.plane003.mesh.position.y = -5;
-    this.plane003.mesh.position.z = -25;
+    this.plane003.mesh.position.z = -15;
 
     this.plane004.mesh = new THREE.Mesh(
       this.plane001.geometry,
@@ -95,7 +95,7 @@ export default class Gridbox {
     this.plane004.mesh.rotation.x = Math.PI * 0.5;
     this.plane004.mesh.rotation.z = -Math.PI * 0.5;
     this.plane004.mesh.position.y = 5;
-    this.plane004.mesh.position.z = -25;
+    this.plane004.mesh.position.z = -15;
 
     this.scene.add(this.plane001.mesh);
     this.scene.add(this.plane002.mesh);
@@ -104,6 +104,6 @@ export default class Gridbox {
   }
 
   update() {
-    this.plane001.material.uniforms.uTime.value = this.time.elapsed * 0.000025;
+    this.plane001.material.uniforms.uTime.value = this.time.elapsed * 0.00005;
   }
 }
