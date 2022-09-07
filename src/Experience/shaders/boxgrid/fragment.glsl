@@ -21,7 +21,7 @@ void main() {
   float ydelta = fwidth(y);
   y = smoothstep(y - ydelta, y + ydelta, uThickness);
 
-  float c =clamp(x + y, 0.0, 1.0);
+  float c =clamp(x + y, 0.12, 0.3);
 
   gl_FragColor = vec4(c, c, c, 1.0);
 }

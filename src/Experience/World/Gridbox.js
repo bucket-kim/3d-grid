@@ -19,13 +19,13 @@ export default class Gridbox {
     this.plane.material = new THREE.ShaderMaterial({
       uniforms: {
         uLineX: {
-          value: 10,
+          value: 20,
         },
         uLineY: {
-          value: 10,
+          value: 20,
         },
         uThickness: {
-          value: 0.04,
+          value: 0.015,
         },
       },
       vertexShader: boxVertex,
@@ -33,7 +33,7 @@ export default class Gridbox {
     });
 
     this.plane.mesh = new THREE.Mesh(this.plane.geometry, this.plane.material);
-    this.plane.mesh.position.z = -75;
+    this.plane.mesh.position.z = -25;
 
     this.plane = this.scene.add(this.plane.mesh);
 
@@ -53,10 +53,10 @@ export default class Gridbox {
           value: 50,
         },
         uLineY: {
-          value: 10,
+          value: 20,
         },
         uThickness: {
-          value: 0.04,
+          value: 0.015,
         },
       },
       vertexShader: boxVertex,
@@ -104,7 +104,6 @@ export default class Gridbox {
   }
 
   update() {
-    this.plane001.material.uniforms.uTime.value = this.time.elapsed * 0.0001;
-    // console.log(this.time.elapsed * 0.001);
+    this.plane001.material.uniforms.uTime.value = this.time.elapsed * 0.000025;
   }
 }
