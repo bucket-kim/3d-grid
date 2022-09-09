@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { Vector2 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import Experience from "./Experience.js";
 
@@ -19,31 +20,63 @@ export default class Camera {
       35,
       this.sizes.width / this.sizes.height,
       0.1,
-      1000
+      10000
+    );
+    this.mouse = new THREE.Vector2();
+    this.target = new THREE.Vector2();
+    this.windowHalf = new THREE.Vector2(
+      this.sizes.width / 2,
+      this.sizes.height / 2
     );
 
     this.instance.position.set(0, 0, 15);
-    this.scene.add(this.instance);
+    this.instance.enablepan = false;
 
-    if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("camera");
-      this.debugFolder.add(this.instance.position, "y", -10, 10, 0.01);
-      this.debugFolder.add(this.instance.position, "x", -10, 10, 0.01);
-      this.debugFolder.add(this.instance.position, "z", 0, 20, 0.01);
-    }
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+        this.mouse.x = e.clientX - this.windowHalf.x;
+        this.mouse.y = e.clientY - this.windowHalf.y;
+      },
+      false
+    );
+
+    document.addEventListener(
+      "wheel",
+      (e) => {
+        this.instance.position.z += e.deltaY * 0.05;
+      },
+      false
+    );
+
+    this.scene.add(this.instance);
   }
 
   setOrbitControl() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
+    this.controls.minDistance = 17;
+    this.controls.maxDistance = 17;
   }
 
   resize() {
+    this.windowHalf.set(this.sizes.width / 2, this.sizes.height / 2);
+
     this.instance.aspect = this.sizes.width / this.sizes.height;
     this.instance.updateProjectionMatrix();
   }
 
   update() {
     this.controls.update();
+    this.controls.enabled = false;
+    this.controls.enableZoom = false;
+
+    this.target.x = (1 - this.mouse.x) * 0.002;
+    this.target.y = (1 - this.mouse.y) * 0.002;
+
+    this.instance.rotation.x +=
+      0.05 * (this.target.y - this.instance.rotation.x);
+    this.instance.rotation.y +=
+      0.05 * (this.target.x - this.instance.rotation.y);
   }
 }

@@ -33,7 +33,7 @@ export default class Gridbox {
     });
 
     this.plane.mesh = new THREE.Mesh(this.plane.geometry, this.plane.material);
-    this.plane.mesh.position.z = -30;
+    this.plane.mesh.position.z = -17.5;
 
     this.plane = this.scene.add(this.plane.mesh);
 

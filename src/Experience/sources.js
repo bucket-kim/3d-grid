@@ -11,4 +11,14 @@ export default [
       "/textures/environmentMap/nz.jpg",
     ],
   },
+  {
+    name: "model",
+    type: "gltfModel",
+    path: "models/scene.glb",
+  },
+  {
+    name: "modelTexture",
+    type: "texture",
+    path: "textures/texture.png",
+  },
 ];
