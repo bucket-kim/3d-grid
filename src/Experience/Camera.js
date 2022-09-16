@@ -40,13 +40,13 @@ export default class Camera {
       false
     );
 
-    document.addEventListener(
-      "wheel",
-      (e) => {
-        this.instance.position.z += e.deltaY * 0.05;
-      },
-      false
-    );
+    // document.addEventListener(
+    //   "wheel",
+    //   (e) => {
+    //     this.instance.position.z += e.deltaY * 0.05;
+    //   },
+    //   false
+    // );
 
     this.scene.add(this.instance);
   }
@@ -54,10 +54,8 @@ export default class Camera {
   setOrbitControl() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
-    // this.controls.minDistance = 17;
-    // this.controls.maxDistance = 17;
     this.controls.zoomSpeed = 0.001;
-    // this.controls.enabled = false;
+    this.controls.enabled = false;
     this.controls.enableZoom = false;
   }
 

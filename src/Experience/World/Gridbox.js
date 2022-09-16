@@ -48,6 +48,7 @@ export default class Gridbox {
       this.platform.geo,
       this.platform.material
     );
+    this.platform.mesh.position.z = -10;
 
     // this.scene.add(this.platform.geo);
     this.scene.add(this.platform.mesh);
@@ -59,9 +60,22 @@ export default class Gridbox {
       new THREE.MeshStandardMaterial()
     );
     this.cube.castShadow = true;
-    this.cube.position.y = 1;
+    this.cube.position.y = 0;
 
     this.scene.add(this.cube);
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to(this.cube.rotation, {
+      scrollTrigger: {
+        trigger: this.canvas,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        toggleActions: "restart pause resume pause",
+      },
+      y: Math.PI * 2,
+    });
   }
 
   update() {

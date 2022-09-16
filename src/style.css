@@ -4,8 +4,9 @@
 }
 
 body {
-  overflow: hidden;
-  /* min-height: calc(1000px + 100vh); */
+  /* overflow: hidden; */
+  min-height: calc(500px + 100vh);
+  margin: 0;
 }
 
 .webgl {
@@ -13,4 +14,5 @@ body {
   top: 0;
   left: 0;
   outline: none;
+  height: 100%;
 }
