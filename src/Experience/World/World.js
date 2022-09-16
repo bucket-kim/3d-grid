@@ -2,7 +2,6 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Gridbox from "./Gridbox.js";
-import Museum from "./Museum.js";
 
 export default class World {
   constructor() {
@@ -21,8 +20,7 @@ export default class World {
     this.resources.on("ready", () => {
       // setup
       this.environment = new Environment();
-      // this.gridbox = new Gridbox();
-      this.museum = new Museum();
+      this.gridbox = new Gridbox();
     });
   }
 

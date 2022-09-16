@@ -1,12 +1,14 @@
+uniform float uTime;
 
+varying vec3 pos;
 varying vec2 vUv;
 
 void main() {
-  vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-  vec4 viewPosition = viewMatrix * modelPosition;
-  vec4 projectedPosition = projectionMatrix * viewPosition;
+  pos = position;
+  vec3 p = position;
+  // p.z = sin(p.x * 1. - uTime) * cos(p.y * 0.1 - uTime) * 1.;
 
-  gl_Position = projectedPosition;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
 
   vUv = uv;
 }

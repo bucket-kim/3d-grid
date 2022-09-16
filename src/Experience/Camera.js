@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import { Vector2 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import Experience from "./Experience.js";
 
@@ -29,7 +28,7 @@ export default class Camera {
       this.sizes.height / 2
     );
 
-    this.instance.position.set(0, 0, 15);
+    this.instance.position.set(0, 2.5, 15);
     this.instance.enablepan = false;
 
     document.addEventListener(
@@ -55,8 +54,11 @@ export default class Camera {
   setOrbitControl() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
-    this.controls.minDistance = 17;
-    this.controls.maxDistance = 17;
+    // this.controls.minDistance = 17;
+    // this.controls.maxDistance = 17;
+    this.controls.zoomSpeed = 0.001;
+    // this.controls.enabled = false;
+    this.controls.enableZoom = false;
   }
 
   resize() {
@@ -68,9 +70,6 @@ export default class Camera {
 
   update() {
     this.controls.update();
-    this.controls.enabled = false;
-    this.controls.enableZoom = false;
-
     this.target.x = (1 - this.mouse.x) * 0.002;
     this.target.y = (1 - this.mouse.y) * 0.002;
 

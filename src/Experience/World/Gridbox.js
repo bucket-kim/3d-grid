@@ -2,108 +2,69 @@ import * as THREE from "three";
 import Experience from "../Experience";
 import boxVertex from "../shaders/boxgrid/vertex.glsl";
 import boxFragment from "../shaders/boxgrid/fragment.glsl";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 export default class Gridbox {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.sizes = this.experience.sizes;
+    this.canvas = this.experience.canvas;
     this.time = this.experience.time;
+    this.camera = this.experience.camera;
+    this.sources = this.experience.resources;
 
-    this.setBox();
+    this.setPlatform();
+    this.setCube();
   }
 
-  setBox() {
-    // front face plane
-    this.plane = {};
-    this.plane.geometry = new THREE.PlaneGeometry(10, 10);
-    this.plane.material = new THREE.ShaderMaterial({
-      uniforms: {
-        uLineX: {
-          value: 20,
-        },
-        uLineY: {
-          value: 20,
-        },
-        uThickness: {
-          value: 0.015,
-        },
-      },
-      vertexShader: boxVertex,
-      fragmentShader: boxFragment,
-    });
+  setPlatform() {
+    this.platform = {};
+    // this.platform.geo = this.sources.items.platform.scene;
+    this.platform.geo = new THREE.PlaneGeometry(50, 50, 100, 100);
+    // this.platform.geo.position.y = -2;
 
-    this.plane.mesh = new THREE.Mesh(this.plane.geometry, this.plane.material);
-    this.plane.mesh.position.z = -17.5;
+    // this.envTexture = this.sources.items.environmentMapTexture;
 
-    this.plane = this.scene.add(this.plane.mesh);
-
-    // planes around
-    this.plane001 = {};
-    this.plane002 = {};
-    this.plane003 = {};
-    this.plane004 = {};
-
-    this.plane001.geometry = new THREE.PlaneGeometry(50, 10);
-    this.plane001.material = new THREE.ShaderMaterial({
+    this.platform.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {
           value: 0,
         },
-        uLineX: {
-          value: 20,
-        },
-        uLineY: {
-          value: 20,
-        },
-        uThickness: {
-          value: 0.015,
-        },
       },
       vertexShader: boxVertex,
       fragmentShader: boxFragment,
-      side: THREE.DoubleSide,
     });
-    this.plane001.mesh = new THREE.Mesh(
-      this.plane001.geometry,
-      this.plane001.material
-    );
-    this.plane001.mesh.rotation.y = Math.PI * 0.5;
-    this.plane001.mesh.position.x = -5;
-    this.plane001.mesh.position.z = -15;
 
-    this.plane002.mesh = new THREE.Mesh(
-      this.plane001.geometry,
-      this.plane001.material
-    );
-    this.plane002.mesh.rotation.y = Math.PI * 0.5;
-    this.plane002.mesh.position.x = 5;
-    this.plane002.mesh.position.z = -15;
+    // this.platform.geo.traverse((child) => {
+    //   if (child instanceof THREE.Mesh) {
+    //     child.material = this.platform.material;
+    //     // child.receiveShadow = true;
+    //   }
+    // });
 
-    this.plane003.mesh = new THREE.Mesh(
-      this.plane001.geometry,
-      this.plane001.material
+    this.platform.mesh = new THREE.Mesh(
+      this.platform.geo,
+      this.platform.material
     );
-    this.plane003.mesh.rotation.x = Math.PI * 0.5;
-    this.plane003.mesh.rotation.z = -Math.PI * 0.5;
-    this.plane003.mesh.position.y = -5;
-    this.plane003.mesh.position.z = -15;
 
-    this.plane004.mesh = new THREE.Mesh(
-      this.plane001.geometry,
-      this.plane001.material
+    // this.scene.add(this.platform.geo);
+    this.scene.add(this.platform.mesh);
+  }
+
+  setCube() {
+    this.cube = new THREE.Mesh(
+      new THREE.BoxGeometry(2, 2, 2),
+      new THREE.MeshStandardMaterial()
     );
-    this.plane004.mesh.rotation.x = Math.PI * 0.5;
-    this.plane004.mesh.rotation.z = -Math.PI * 0.5;
-    this.plane004.mesh.position.y = 5;
-    this.plane004.mesh.position.z = -15;
+    this.cube.castShadow = true;
+    this.cube.position.y = 1;
 
-    this.scene.add(this.plane001.mesh);
-    this.scene.add(this.plane002.mesh);
-    this.scene.add(this.plane003.mesh);
-    this.scene.add(this.plane004.mesh);
+    this.scene.add(this.cube);
   }
 
   update() {
-    this.plane001.material.uniforms.uTime.value = this.time.elapsed * 0.00005;
+    this.platform.material.uniforms.uTime.value = this.time.elapsed * 0.001;
   }
 }
