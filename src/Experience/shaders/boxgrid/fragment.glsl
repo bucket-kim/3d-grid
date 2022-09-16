@@ -2,6 +2,7 @@ varying vec3 pos;
 varying vec2 vUv;
 
 uniform float uTime;
+uniform vec3 uColor;
 
 vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec4 taylorInvSqrt(vec4 r){return 1.79284291400159 - 0.85373472095314 * r;}
@@ -155,9 +156,9 @@ void main() {
   float v = line(1.0, vec3(0.5)) + line(1.0, vec3(10.));
 
   // vec3 c = v * vec3(0., 1., 1.) * (sin(uTime * 5. - pos.x * .25) * .5 + .5);
-  vec3 c = v * vec3(0., 1., 1.) * (cnoise(vec4(pos * 0.5, uTime)) * 1.0 + .5);
+  vec3 c = v * vec3(uColor) * (cnoise(vec4(pos * 0.5, uTime)) * 1.0 + .5);
 
-  c = mix(vec3(.975), c * 3.0, v * 0.2);
+  c = mix(vec3(.975), c * 3.0, v * 0.25);
 
   float noise = cnoise(vec4(c, uTime));
 

@@ -15,34 +15,29 @@ export default class Gridbox {
     this.camera = this.experience.camera;
     this.sources = this.experience.resources;
 
+    this.color = new THREE.Vector3(0.28, 0.51, 0.93);
+
     this.setPlatform();
     this.setCube();
+    this.setColorSwitch();
   }
 
   setPlatform() {
     this.platform = {};
-    // this.platform.geo = this.sources.items.platform.scene;
     this.platform.geo = new THREE.PlaneGeometry(50, 50, 100, 100);
-    // this.platform.geo.position.y = -2;
-
-    // this.envTexture = this.sources.items.environmentMapTexture;
 
     this.platform.material = new THREE.ShaderMaterial({
       uniforms: {
         uTime: {
           value: 0,
         },
+        uColor: {
+          value: this.color,
+        },
       },
       vertexShader: boxVertex,
       fragmentShader: boxFragment,
     });
-
-    // this.platform.geo.traverse((child) => {
-    //   if (child instanceof THREE.Mesh) {
-    //     child.material = this.platform.material;
-    //     // child.receiveShadow = true;
-    //   }
-    // });
 
     this.platform.mesh = new THREE.Mesh(
       this.platform.geo,
@@ -50,7 +45,6 @@ export default class Gridbox {
     );
     this.platform.mesh.position.z = -10;
 
-    // this.scene.add(this.platform.geo);
     this.scene.add(this.platform.mesh);
   }
 
@@ -77,6 +71,8 @@ export default class Gridbox {
       y: Math.PI * 2,
     });
   }
+
+  setColorSwitch() {}
 
   update() {
     this.platform.material.uniforms.uTime.value = this.time.elapsed * 0.001;
