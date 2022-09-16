@@ -60,7 +60,7 @@ export default class Gridbox {
       new THREE.MeshStandardMaterial()
     );
     this.cube.castShadow = true;
-    this.cube.position.y = 0;
+    this.cube.position.y = 1;
 
     this.scene.add(this.cube);
 

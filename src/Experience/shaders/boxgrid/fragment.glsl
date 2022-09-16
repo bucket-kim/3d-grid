@@ -157,7 +157,7 @@ void main() {
   // vec3 c = v * vec3(0., 1., 1.) * (sin(uTime * 5. - pos.x * .25) * .5 + .5);
   vec3 c = v * vec3(0., 1., 1.) * (cnoise(vec4(pos * 0.5, uTime)) * 1.0 + .5);
 
-  c = mix(vec3(1), c * 3.0, v * 0.2);
+  c = mix(vec3(.975), c * 3.0, v * 0.2);
 
   float noise = cnoise(vec4(c, uTime));
 
