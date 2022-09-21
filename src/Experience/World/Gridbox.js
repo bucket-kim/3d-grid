@@ -2,8 +2,6 @@ import * as THREE from "three";
 import Experience from "../Experience";
 import boxVertex from "../shaders/boxgrid/vertex.glsl";
 import boxFragment from "../shaders/boxgrid/fragment.glsl";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
 
 export default class Gridbox {
   constructor() {
@@ -18,8 +16,6 @@ export default class Gridbox {
     this.color = new THREE.Vector3(0.28, 0.51, 0.93);
 
     this.setPlatform();
-    this.setCube();
-    this.setColorSwitch();
   }
 
   setPlatform() {
@@ -47,32 +43,6 @@ export default class Gridbox {
 
     this.scene.add(this.platform.mesh);
   }
-
-  setCube() {
-    this.cube = new THREE.Mesh(
-      new THREE.BoxGeometry(2, 2, 2),
-      new THREE.MeshStandardMaterial()
-    );
-    this.cube.castShadow = true;
-    this.cube.position.y = 1;
-
-    this.scene.add(this.cube);
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    gsap.to(this.cube.rotation, {
-      scrollTrigger: {
-        trigger: this.canvas,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-        toggleActions: "restart pause resume pause",
-      },
-      y: Math.PI * 2,
-    });
-  }
-
-  setColorSwitch() {}
 
   update() {
     this.platform.material.uniforms.uTime.value = this.time.elapsed * 0.001;

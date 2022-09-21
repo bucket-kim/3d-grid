@@ -12,8 +12,33 @@ export default [
     ],
   },
   {
-    name: "platform",
+    name: "spidermanMask",
     type: "gltfModel",
-    path: "models/platform.glb",
+    path: "models/mask.glb",
+  },
+  {
+    name: "spidermanMaskBaseColor",
+    type: "texture",
+    path: "textures/mask texture/mask_BaseColor.png",
+  },
+  {
+    name: "spidermanMaskRoughness",
+    type: "texture",
+    path: "textures/mask texture/mask_Roughness.png",
+  },
+  {
+    name: "spidermanMaskMetal",
+    type: "texture",
+    path: "textures/mask texture/mask_Metalness.png",
+  },
+  {
+    name: "spidermanMaskNormal",
+    type: "texture",
+    path: "textures/mask texture/mask_Normal.png",
+  },
+  {
+    name: "spidermanMaskHeight",
+    type: "texture",
+    path: "textures/mask texture/mask_Height.png",
   },
 ];

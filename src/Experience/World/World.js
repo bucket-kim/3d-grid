@@ -2,6 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 import Environment from "./Environment.js";
 import Gridbox from "./Gridbox.js";
+import Models from "./Models.js";
 
 export default class World {
   constructor() {
@@ -21,6 +22,7 @@ export default class World {
       // setup
       this.environment = new Environment();
       this.gridbox = new Gridbox();
+      this.models = new Models();
     });
   }
 
