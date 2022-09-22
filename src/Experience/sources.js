@@ -19,26 +19,26 @@ export default [
   {
     name: "spidermanMaskBaseColor",
     type: "texture",
-    path: "textures/mask texture/mask_BaseColor.png",
+    path: "textures/mask texture/mask_BaseColor.jpg",
   },
   {
     name: "spidermanMaskRoughness",
     type: "texture",
-    path: "textures/mask texture/mask_Roughness.png",
+    path: "textures/mask texture/mask_Roughness.jpg",
   },
   {
     name: "spidermanMaskMetal",
     type: "texture",
-    path: "textures/mask texture/mask_Metalness.png",
+    path: "textures/mask texture/mask_Metalness.jpg",
   },
   {
     name: "spidermanMaskNormal",
     type: "texture",
-    path: "textures/mask texture/mask_Normal.png",
+    path: "textures/mask texture/mask_Normal.jpg",
   },
   {
     name: "spidermanMaskHeight",
     type: "texture",
-    path: "textures/mask texture/mask_Height.png",
+    path: "textures/mask texture/mask_Height.jpg",
   },
 ];
