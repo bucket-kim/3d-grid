@@ -28,17 +28,9 @@ export default class Camera {
       this.sizes.height / 2
     );
 
-    this.instance.position.set(0, 2.5, 15);
-    this.instance.enablepan = false;
+    this.instance.position.set(0, 2.5, 10);
 
-    document.addEventListener(
-      "mousemove",
-      (e) => {
-        this.mouse.x = e.clientX - this.windowHalf.x;
-        this.mouse.y = e.clientY - this.windowHalf.y;
-      },
-      false
-    );
+    // this.instance.enablepan = false;
 
     // document.addEventListener(
     //   "wheel",
@@ -48,15 +40,29 @@ export default class Camera {
     //   false
     // );
 
-    this.scene.add(this.instance);
+    // this.scene.add(this.instance);
   }
 
   setOrbitControl() {
     this.controls = new OrbitControls(this.instance, this.canvas);
     this.controls.enableDamping = true;
-    this.controls.zoomSpeed = 0.001;
-    this.controls.enabled = false;
-    this.controls.enableZoom = false;
+    this.controls.minPolarAngle = 0;
+    this.controls.maxPolarAngle = Math.PI * 0.5;
+
+    this.controls.minDistance = 5;
+    this.controls.maxDistance = 15;
+
+    const minPan = new THREE.Vector3(-3, -1, -2);
+    const maxPan = new THREE.Vector3(3, 1, 2);
+    const _v = new THREE.Vector3();
+
+    this.controls.addEventListener("change", () => {
+      _v.copy(this.controls.target);
+      this.controls.target.clamp(minPan, maxPan);
+
+      _v.sub(this.controls.target);
+      this.instance.position.sub(_v);
+    });
   }
 
   resize() {
@@ -68,12 +74,12 @@ export default class Camera {
 
   update() {
     this.controls.update();
-    this.target.x = (1 - this.mouse.x) * 0.002;
-    this.target.y = (1 - this.mouse.y) * 0.002;
+    // this.target.x = (1 - this.mouse.x) * 0.002;
+    // this.target.y = (1 - this.mouse.y) * 0.002;
 
-    this.instance.rotation.x +=
-      0.05 * (this.target.y - this.instance.rotation.x);
-    this.instance.rotation.y +=
-      0.05 * (this.target.x - this.instance.rotation.y);
+    // this.instance.rotation.x +=
+    //   0.05 * (this.target.y - this.instance.rotation.x);
+    // this.instance.rotation.y +=
+    //   0.05 * (this.target.x - this.instance.rotation.y);
   }
 }

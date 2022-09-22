@@ -4,8 +4,8 @@
 }
 
 body {
-  /* overflow: hidden; */
-  min-height: calc(5000px + 100vh);
+  overflow: hidden;
+  /* min-height: calc(5000px + 100vh); */
   margin: 0;
 }
 

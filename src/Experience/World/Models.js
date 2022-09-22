@@ -54,7 +54,9 @@ export default class Models {
         child.material = this.material;
 
         child.scale.set(2, 2, 2);
-        child.position.y = 1;
+        // child.position.y = 1;
+
+        child.castShadow = true;
 
         this.scene.add(child);
 
