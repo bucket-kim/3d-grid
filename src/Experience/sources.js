@@ -63,4 +63,10 @@ export default [
     type: "texture",
     path: "textures/cover sculpture/normal.jpg",
   },
+  // sculpture
+  {
+    name: "sculpture",
+    type: "gltfModel",
+    path: "models/sculpture.glb",
+  },
 ];

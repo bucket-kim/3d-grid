@@ -24,7 +24,7 @@ export default class Models {
     gsap.registerPlugin(ScrollTrigger);
 
     this.model = {};
-    this.model.geometry = this.resources.items.coverMask.scene;
+    this.model.geometry = this.resources.items.sculpture.scene;
 
     this.baseColor = this.resources.items.spidermanMaskBaseColor;
     this.roughness = this.resources.items.coverMaskRoughness;
@@ -47,7 +47,7 @@ export default class Models {
       metalnessMap: this.mentalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
-      color: "#151719",
+      color: "#000000",
       // displacementMap: this.height,
       // displacementScale: 0.01,
     });
@@ -55,10 +55,10 @@ export default class Models {
     // console.log(this.textures);
 
     this.model.geometry.traverse((child) => {
-      let scale = 10;
+      let scale = 2;
 
       if (child instanceof THREE.Mesh) {
-        child.material = this.material;
+        // child.material = this.material;
 
         child.scale.set(scale, scale, scale);
         child.position.y = -2;
