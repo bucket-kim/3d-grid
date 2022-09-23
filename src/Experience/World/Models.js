@@ -47,7 +47,7 @@ export default class Models {
       metalnessMap: this.mentalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
-      color: "#000000",
+      color: "#ffffff",
       // displacementMap: this.height,
       // displacementScale: 0.01,
     });
@@ -58,7 +58,7 @@ export default class Models {
       let scale = 2;
 
       if (child instanceof THREE.Mesh) {
-        // child.material = this.material;
+        child.material = this.material;
 
         child.scale.set(scale, scale, scale);
         child.position.y = -2;

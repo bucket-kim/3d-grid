@@ -1,5 +1,9 @@
 import * as THREE from "three";
 import Experience from "../Experience";
+import {
+  RectAreaLight,
+  RectAreaLightHelper,
+} from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 
 export default class Environment {
   constructor() {
@@ -9,12 +13,13 @@ export default class Environment {
     this.debug = this.experience.debug;
 
     // debug
-    if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("environment");
-    }
+    // if (this.debug.active) {
+    //   this.debugFolder = this.debug.ui.addFolder("environment");
+    // }
 
     this.setSunLight();
     this.setEnvMap();
+    this.setAreaLight();
   }
 
   setSunLight() {
@@ -31,41 +36,41 @@ export default class Environment {
 
     this.scene.add(this.sunLight);
 
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.sunLight, "intensity")
-        .name("sunLightIntensity")
-        .min(0)
-        .max(10)
-        .step(0.001);
+    // if (this.debug.active) {
+    //   this.debugFolder
+    //     .add(this.sunLight, "intensity")
+    //     .name("sunLightIntensity")
+    //     .min(0)
+    //     .max(10)
+    //     .step(0.001);
 
-      this.debugFolder
-        .add(this.sunLight.position, "x")
-        .name("sunLightX")
-        .min(-20)
-        .max(20)
-        .step(0.001);
+    //   this.debugFolder
+    //     .add(this.sunLight.position, "x")
+    //     .name("sunLightX")
+    //     .min(-20)
+    //     .max(20)
+    //     .step(0.001);
 
-      this.debugFolder
-        .add(this.sunLight.position, "y")
-        .name("sunLightY")
-        .min(-20)
-        .max(20)
-        .step(0.001);
+    //   this.debugFolder
+    //     .add(this.sunLight.position, "y")
+    //     .name("sunLightY")
+    //     .min(-20)
+    //     .max(20)
+    //     .step(0.001);
 
-      this.debugFolder
-        .add(this.sunLight.position, "z")
-        .name("sunLightZ")
-        .min(-20)
-        .max(20)
-        .step(0.001);
+    //   this.debugFolder
+    //     .add(this.sunLight.position, "z")
+    //     .name("sunLightZ")
+    //     .min(-20)
+    //     .max(20)
+    //     .step(0.001);
 
-      this.debugFolder
-        .add(this.sunLight.shadow, "radius")
-        .min(0)
-        .max(1000)
-        .step(0.001);
-    }
+    //   this.debugFolder
+    //     .add(this.sunLight.shadow, "radius")
+    //     .min(0)
+    //     .max(1000)
+    //     .step(0.001);
+    // }
   }
 
   setEnvMap() {
@@ -93,14 +98,38 @@ export default class Environment {
     this.environmentMap.updateMaterial();
 
     // debug
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.environmentMap, "intensity")
-        .name("envMapIntensity")
-        .min(0)
-        .max(4)
-        .step(0.001)
-        .onChange(this.environmentMap.updateMaterial);
-    }
+    // if (this.debug.active) {
+    //   this.debugFolder
+    //     .add(this.environmentMap, "intensity")
+    //     .name("envMapIntensity")
+    //     .min(0)
+    //     .max(4)
+    //     .step(0.001)
+    //     .onChange(this.environmentMap.updateMaterial);
+    // }
+  }
+
+  setAreaLight() {
+    this.areaLight = new THREE.RectAreaLight(0xffffff, 0.35, 10, 10);
+    this.areaLight.rotation.x = Math.PI / 2;
+    this.areaLight.position.y = -3;
+
+    this.scene.add(this.areaLight);
+
+    // if (this.debug.active) {
+    //   this.debugFolder
+    //     .add(this.areaLight.position, "y")
+    //     .name("areaLight Y")
+    //     .min(-4)
+    //     .max(4)
+    //     .step(0.001);
+
+    //   this.debugFolder
+    //     .add(this.areaLight, "intensity")
+    //     .name("areaLight intensity")
+    //     .min(0)
+    //     .max(1)
+    //     .step(0.001);
+    // }
   }
 }
