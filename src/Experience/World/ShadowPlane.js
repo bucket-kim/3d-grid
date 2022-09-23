@@ -5,6 +5,12 @@ export default class ShadowPlane {
   constructor() {
     this.experience = new Experience();
     this.scene = this.experience.scene;
+    this.debug = this.experience.debug;
+
+    // debug
+    if (this.debug.active) {
+      this.debugFolder = this.debug.ui.addFolder("shadow");
+    }
 
     this.castShadow();
   }
@@ -17,6 +23,7 @@ export default class ShadowPlane {
     this.shadowMat = new THREE.ShadowMaterial();
     this.shadowMat.opacity = 0.2;
     this.shadowMat.side = THREE.DoubleSide;
+    // this.shadowMat.vi
 
     this.mesh = new THREE.Mesh(this.plane, this.shadowMat);
     this.mesh.position.y = -2;
@@ -24,5 +31,9 @@ export default class ShadowPlane {
     this.mesh.receiveShadow = true;
 
     this.scene.add(this.mesh);
+
+    if (this.debug.active) {
+      this.debugFolder.add(this.shadowMat, "visible");
+    }
   }
 }
