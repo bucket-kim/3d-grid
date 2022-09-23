@@ -41,4 +41,26 @@ export default [
     type: "texture",
     path: "textures/mask texture/mask_Height.jpg",
   },
+
+  // cover mask
+  {
+    name: "coverMask",
+    type: "gltfModel",
+    path: "models/coverSculpture.glb",
+  },
+  {
+    name: "coverMaskMetalness",
+    type: "texture",
+    path: "textures/cover sculpture/metalness.jpg",
+  },
+  {
+    name: "coverMaskRoughness",
+    type: "texture",
+    path: "textures/cover sculpture/roughness.jpg",
+  },
+  {
+    name: "coverMaskNormal",
+    type: "texture",
+    path: "textures/cover sculpture/normal.jpg",
+  },
 ];

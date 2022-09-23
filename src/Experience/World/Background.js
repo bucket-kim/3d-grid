@@ -12,7 +12,6 @@ export default class Background {
   }
 
   setBackground() {
-    console.log("hi");
     this.sphere = new THREE.SphereGeometry(50, 32, 16);
 
     this.material = new THREE.ShaderMaterial({
