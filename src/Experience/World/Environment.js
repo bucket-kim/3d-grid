@@ -1,10 +1,5 @@
 import * as THREE from "three";
 import Experience from "../Experience";
-import {
-  RectAreaLight,
-  RectAreaLightHelper,
-} from "three/examples/jsm/helpers/RectAreaLightHelper.js";
-
 export default class Environment {
   constructor() {
     this.experience = new Experience();

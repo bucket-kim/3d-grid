@@ -10,6 +10,7 @@ export default class ShadowPlane {
     // debug
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("shadow");
+      this.debugFolder.closed = false;
     }
 
     this.castShadow();
