@@ -170,7 +170,7 @@ export default class Environment {
     // this.scene.add(this.helper);
     this.areaLight.rotation.y = -Math.PI * 0.25;
 
-    this.areaLight.position.set(-6, 0, 4.5);
+    this.areaLight.position.set(-4.221, 0, 7);
 
     if (this.debug.active) {
       this.debugFolder
@@ -199,14 +199,14 @@ export default class Environment {
   }
 
   setFillLight() {
-    this.areaLight = new THREE.RectAreaLight(0xffffff, 2.5);
+    this.areaLight = new THREE.RectAreaLight(0xffffff, 2);
 
     this.helper = new RectAreaLightHelper(this.areaLight);
 
     // this.scene.add(this.helper);
     this.areaLight.rotation.y = Math.PI * 0.25;
 
-    this.areaLight.position.set(8.5, 2.5, -1.3);
+    this.areaLight.position.set(8, 2.5, -1.3);
 
     if (this.debug.active) {
       this.debugFolder
@@ -243,7 +243,7 @@ export default class Environment {
     this.areaLight.rotation.y = Math.PI;
     this.areaLight.rotation.x = Math.PI * 0.25;
 
-    this.areaLight.position.set(0, 6, -6.5);
+    this.areaLight.position.set(0, 6, -3.5);
 
     if (this.debug.active) {
       this.debugFolder
@@ -264,12 +264,6 @@ export default class Environment {
       this.debugFolder
         .add(this.areaLight.position, "z")
         .min(-20)
-        .max(10)
-        .step(0.001);
-
-      this.debugFolder
-        .add(this.areaLight.rotation, "x")
-        .min(-10)
         .max(10)
         .step(0.001);
     }
