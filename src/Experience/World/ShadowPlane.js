@@ -27,7 +27,7 @@ export default class ShadowPlane {
     // this.shadowMat.vi
 
     this.mesh = new THREE.Mesh(this.plane, this.shadowMat);
-    this.mesh.position.y = -2;
+    this.mesh.position.y = -2.0;
 
     this.mesh.receiveShadow = true;
 

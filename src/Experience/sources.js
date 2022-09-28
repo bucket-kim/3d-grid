@@ -12,6 +12,18 @@ export default [
     ],
   },
   {
+    name: "museumEnvTexture",
+    type: "cubeTexture",
+    path: [
+      "/textures/museumEnv/px.jpg",
+      "/textures/museumEnv/nx.jpg",
+      "/textures/museumEnv/py.jpg",
+      "/textures/museumEnv/ny.jpg",
+      "/textures/museumEnv/pz.jpg",
+      "/textures/museumEnv/nz.jpg",
+    ],
+  },
+  {
     name: "spidermanMask",
     type: "gltfModel",
     path: "models/mask.glb",
@@ -68,5 +80,15 @@ export default [
     name: "sculpture",
     type: "gltfModel",
     path: "models/sculpture.glb",
+  },
+  {
+    name: "shoe",
+    type: "gltfModel",
+    path: "models/shoe.glb",
+  },
+  {
+    name: "shoeColor",
+    type: "texture",
+    path: "textures/shoes_Base_Color.png",
   },
 ];

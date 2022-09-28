@@ -24,9 +24,10 @@ export default class Models {
     gsap.registerPlugin(ScrollTrigger);
 
     this.model = {};
-    this.model.geometry = this.resources.items.sculpture.scene;
+    this.model.geometry = this.resources.items.shoe.scene;
 
-    this.baseColor = this.resources.items.spidermanMaskBaseColor;
+    this.baseColor = this.resources.items.shoeColor;
+    this.baseColor.encoding = THREE.sRGBEncoding;
     this.roughness = this.resources.items.coverMaskRoughness;
     this.mentalness = this.resources.items.coverMaskMetalness;
     this.normal = this.resources.items.coverMaskNormal;
@@ -43,13 +44,12 @@ export default class Models {
     this.normal.wrapS = this.normal.wrapT = THREE.RepeatWrapping;
 
     this.material = new THREE.MeshStandardMaterial({
-      // map: this.baseColor,
+      map: this.baseColor,
       metalnessMap: this.mentalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
       color: "#ffffff",
       // displacementMap: this.height,
-      // displacementScale: 0.01,
     });
 
     // console.log(this.textures);
@@ -64,6 +64,7 @@ export default class Models {
         child.position.y = -2;
 
         child.castShadow = true;
+        // child.rotation.y = Math.PI / 2;
 
         this.scene.add(child);
 
