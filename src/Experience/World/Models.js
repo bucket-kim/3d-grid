@@ -1,7 +1,5 @@
 import * as THREE from "three";
 import Experience from "../Experience.js";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
 export default class Models {
@@ -13,7 +11,7 @@ export default class Models {
     this.setModel();
   }
 
-  setModel() {
+  setModel(name) {
     this.cube = new THREE.Mesh(
       new THREE.BoxGeometry(2, 2, 2),
       new THREE.MeshStandardMaterial()
@@ -24,7 +22,7 @@ export default class Models {
     // this.scene.add(this.cube);
 
     this.model = {};
-    this.model.geometry = this.resources.items.coverMask.scene;
+    this.model.geometry = this.resources.items.sculpture.scene;
 
     this.baseColor = this.resources.items.shoeColor;
     this.baseColor.encoding = THREE.sRGBEncoding;
@@ -55,18 +53,9 @@ export default class Models {
       metalnessMap: this.metalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
-      color: "#111111",
+      color: "#eaeaea",
+      // envMap: this.hdrEquirect,
       transparent: true,
-    });
-
-    this.glassMat = new THREE.MeshPhysicalMaterial({
-      // map: this.baseColor,
-      color: 0x070707,
-      metalnessMap: this.metalness,
-      roughnessMap: this.roughness,
-      normalMap: this.normal,
-      envMap: this.hdrEquirect,
-      // side: THREE.DoubleSide,
     });
 
     // console.log(this.textures);
@@ -76,7 +65,7 @@ export default class Models {
 
       if (child instanceof THREE.Mesh) {
         // child.material = this.material;
-        child.material = this.glassMat;
+        child.material = this.material;
 
         child.scale.set(scale, scale, scale);
         child.position.y = -2;
