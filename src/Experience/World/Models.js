@@ -51,21 +51,21 @@ export default class Models {
     );
 
     this.material = new THREE.MeshStandardMaterial({
-      map: this.baseColor,
+      // map: this.baseColor,
       metalnessMap: this.metalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
-      color: "#ffffff",
+      color: "#111111",
       transparent: true,
     });
 
     this.glassMat = new THREE.MeshPhysicalMaterial({
       // map: this.baseColor,
-      color: 0x111111,
+      color: 0x070707,
       metalnessMap: this.metalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
-      // envMap: this.hdrEquirect,
+      envMap: this.hdrEquirect,
       // side: THREE.DoubleSide,
     });
 
