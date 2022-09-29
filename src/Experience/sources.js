@@ -15,12 +15,12 @@ export default [
     name: "museumEnvTexture",
     type: "cubeTexture",
     path: [
-      "/textures/museumEnv/px.jpg",
-      "/textures/museumEnv/nx.jpg",
-      "/textures/museumEnv/py.jpg",
-      "/textures/museumEnv/ny.jpg",
-      "/textures/museumEnv/pz.jpg",
-      "/textures/museumEnv/nz.jpg",
+      "/textures/museumEnv/px.png",
+      "/textures/museumEnv/nx.png",
+      "/textures/museumEnv/py.png",
+      "/textures/museumEnv/ny.png",
+      "/textures/museumEnv/pz.png",
+      "/textures/museumEnv/nz.png",
     ],
   },
   {

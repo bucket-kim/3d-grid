@@ -22,26 +22,25 @@ export default class Models {
     this.cube.position.y = 1;
 
     // this.scene.add(this.cube);
-    gsap.registerPlugin(ScrollTrigger);
 
     this.model = {};
-    this.model.geometry = this.resources.items.shoe.scene;
+    this.model.geometry = this.resources.items.coverMask.scene;
 
     this.baseColor = this.resources.items.shoeColor;
     this.baseColor.encoding = THREE.sRGBEncoding;
-    this.roughness = this.resources.items.spidermanMaskRoughness;
-    this.mentalness = this.resources.items.spidermanMaskMetal;
-    this.normal = this.resources.items.spidermanMaskNormal;
+    this.roughness = this.resources.items.coverMaskRoughness;
+    this.metalness = this.resources.items.coverMaskMetalness;
+    this.normal = this.resources.items.coverMaskNormal;
     this.height = this.resources.items.spidermanMaskHeight;
 
     this.baseColor.flipY = false;
-    this.mentalness.flipY = false;
+    this.metalness.flipY = false;
     this.roughness.flipY = false;
     this.normal.flipY = false;
     this.height.flipY = false;
 
     this.roughness.wrapS = this.roughness.wrapT = THREE.RepeatWrapping;
-    this.mentalness.wrapS = this.mentalness.wrapT = THREE.RepeatWrapping;
+    this.metalness.wrapS = this.metalness.wrapT = THREE.RepeatWrapping;
     this.normal.wrapS = this.normal.wrapT = THREE.RepeatWrapping;
 
     this.hdrEquirect = new RGBELoader().load(
@@ -53,21 +52,21 @@ export default class Models {
 
     this.material = new THREE.MeshStandardMaterial({
       map: this.baseColor,
-      metalnessMap: this.mentalness,
+      metalnessMap: this.metalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
       color: "#ffffff",
-      // displacementMap: this.height,
       transparent: true,
     });
 
     this.glassMat = new THREE.MeshPhysicalMaterial({
-      map: this.baseColor,
-      // metalnessMap: this.mentalness,
-      // roughnessMap: this.roughness,
-      // normalMap: this.normal,
-      envMap: this.hdrEquirect,
-      side: THREE.DoubleSide,
+      // map: this.baseColor,
+      color: 0x111111,
+      metalnessMap: this.metalness,
+      roughnessMap: this.roughness,
+      normalMap: this.normal,
+      // envMap: this.hdrEquirect,
+      // side: THREE.DoubleSide,
     });
 
     // console.log(this.textures);

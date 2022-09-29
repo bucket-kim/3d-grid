@@ -15,15 +15,15 @@ export default class Environment {
     }
 
     this.setEnvMap();
-    this.productLighting();
-    // this.setSculptureLight();
+    // this.productLighting();
+    this.setSculptureLight();
   }
 
   setEnvMap() {
     this.environmentMap = {};
     this.environmentMap.texture = this.resources.items.museumEnvTexture;
     this.environmentMap.texture.encoding = THREE.sRGBEncoding;
-    this.environmentMap.intensity = 1.5;
+    this.environmentMap.intensity = 1;
 
     this.scene.environment = this.environmentMap.texture;
     // this.scene.background = this.environmentMap.texture;
