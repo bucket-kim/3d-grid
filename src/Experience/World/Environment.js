@@ -14,19 +14,16 @@ export default class Environment {
       this.debugFolder = this.debug.ui.addFolder("environment");
     }
 
-    this.setSpotLight();
     this.setEnvMap();
     this.productLighting();
-    // this.setKeyight();
-    // this.setFillLight();
-    // this.setRimLight();
+    // this.setSculptureLight();
   }
 
   setEnvMap() {
     this.environmentMap = {};
-    this.environmentMap.intensity = 2;
     this.environmentMap.texture = this.resources.items.museumEnvTexture;
     this.environmentMap.texture.encoding = THREE.sRGBEncoding;
+    this.environmentMap.intensity = 1.5;
 
     this.scene.environment = this.environmentMap.texture;
     // this.scene.background = this.environmentMap.texture;
@@ -54,23 +51,58 @@ export default class Environment {
         .add(this.environmentMap, "intensity")
         .name("envMapIntensity")
         .min(0)
-        .max(4)
+        .max(5)
         .step(0.001)
         .onChange(this.environmentMap.updateMaterial);
     }
   }
 
-  setSpotLight() {
+  setSculptureLight() {
+    this.areaLight = new THREE.RectAreaLight(0xffffff, 5, 5, 5);
+
+    this.helper = new RectAreaLightHelper(this.areaLight);
+
+    // this.scene.add(this.helper);
+    this.areaLight.rotation.y = Math.PI;
+    this.areaLight.rotation.x = Math.PI * 0.25;
+
+    this.areaLight.position.set(0, 6, -3.5);
+
+    if (this.debug.active) {
+      this.debugFolder
+        .add(this.areaLight, "intensity")
+        .min(0)
+        .max(10)
+        .step(0.001);
+      this.debugFolder
+        .add(this.areaLight.position, "x")
+        .min(-10)
+        .max(10)
+        .step(0.001);
+      this.debugFolder
+        .add(this.areaLight.position, "y")
+        .min(-10)
+        .max(10)
+        .step(0.001);
+      this.debugFolder
+        .add(this.areaLight.position, "z")
+        .min(-20)
+        .max(10)
+        .step(0.001);
+    }
+
+    this.scene.add(this.areaLight);
+
     this.spotLight = new THREE.SpotLight(
       0xfffffff,
-      25,
+      20,
       35,
       Math.PI * 0.1,
       0.5,
       1
     );
 
-    this.spotLight.position.set(0, 6, 0);
+    this.spotLight.position.set(0, 6, 3);
     this.spotLight.shadow.mapSize.width = 1024;
     this.spotLight.shadow.mapSize.height = 1024;
 
@@ -78,9 +110,9 @@ export default class Environment {
 
     this.helper = new THREE.SpotLightHelper(this.spotLight);
 
-    this.scene.add(this.spotLight);
     this.scene.add(this.spotLight.target);
     // this.scene.add(this.helper);
+    this.scene.add(this.spotLight);
 
     if (this.debug.active) {
       this.debugFolder
@@ -111,116 +143,66 @@ export default class Environment {
         .step(0.001);
     }
   }
-  setKeyight() {
-    this.areaLight = new THREE.RectAreaLight(0xffffff, 3.5);
-
-    this.helper = new RectAreaLightHelper(this.areaLight);
-
-    // this.scene.add(this.helper);
-    this.areaLight.rotation.y = -Math.PI * 0.25;
-
-    this.areaLight.position.set(-4.221, 0, 7);
-
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.areaLight, "intensity")
-        .min(0)
-        .max(5)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "x")
-        .min(-10)
-        .max(0)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "y")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "z")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-    }
-
-    this.scene.add(this.areaLight);
-  }
-
-  setFillLight() {
-    this.areaLight = new THREE.RectAreaLight(0xffffff, 2);
-
-    this.helper = new RectAreaLightHelper(this.areaLight);
-
-    // this.scene.add(this.helper);
-    this.areaLight.rotation.y = Math.PI * 0.25;
-
-    this.areaLight.position.set(8, 2.5, -1.3);
-
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.areaLight, "intensity")
-        .min(0)
-        .max(5)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "x")
-        .min(0)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "y")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "z")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-    }
-
-    this.scene.add(this.areaLight);
-  }
-
-  setRimLight() {
-    this.areaLight = new THREE.RectAreaLight(0xffffff, 7.5, 5, 5);
-
-    this.helper = new RectAreaLightHelper(this.areaLight);
-
-    // this.scene.add(this.helper);
-    this.areaLight.rotation.y = Math.PI;
-    this.areaLight.rotation.x = Math.PI * 0.25;
-
-    this.areaLight.position.set(0, 6, -3.5);
-
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.areaLight, "intensity")
-        .min(0)
-        .max(5)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "x")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "y")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "z")
-        .min(-20)
-        .max(10)
-        .step(0.001);
-    }
-
-    this.scene.add(this.areaLight);
-  }
 
   productLighting() {
+    this.spotLight = new THREE.SpotLight(
+      0xfffffff,
+      25,
+      35,
+      Math.PI * 0.1,
+      0.5,
+      1
+    );
+
+    this.spotLight.position.set(0, 6, 0);
+    this.spotLight.shadow.mapSize.width = 2048;
+    this.spotLight.shadow.mapSize.height = 2048;
+
+    this.spotLight.castShadow = true;
+
+    this.helper = new THREE.SpotLightHelper(this.spotLight);
+
+    // this.scene.add(this.spotLight);
+    this.scene.add(this.spotLight.target);
+    // this.scene.add(this.helper);
+
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 10);
+    this.directionalLight.castShadow = true;
+    this.directionalLight.shadow.normalBias = 0.05;
+
+    this.directionalLight.position.set(0, 15, -4);
+
+    this.scene.add(this.directionalLight);
+
+    if (this.debug.active) {
+      this.debugFolder
+        .add(this.directionalLight.position, "y")
+        .name("spot light y")
+        .min(0)
+        .max(50)
+        .step(0.001);
+      this.debugFolder
+        .add(this.directionalLight.position, "x")
+        .name("spot light x")
+        .min(-10)
+        .max(10)
+        .step(0.001);
+
+      this.debugFolder
+        .add(this.directionalLight.position, "z")
+        .name("spot light z")
+        .min(-10)
+        .max(10)
+        .step(0.001);
+
+      this.debugFolder
+        .add(this.directionalLight, "intensity")
+        .name("spot light intensity")
+        .min(0)
+        .max(50)
+        .step(0.001);
+    }
+
     this.areaLight = new THREE.RectAreaLight(0xffffff, 2, 20, 20);
 
     this.helper = new RectAreaLightHelper(this.areaLight);

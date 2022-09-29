@@ -81,6 +81,8 @@ export default [
     type: "gltfModel",
     path: "models/sculpture.glb",
   },
+
+  // shoes
   {
     name: "shoe",
     type: "gltfModel",
@@ -90,5 +92,12 @@ export default [
     name: "shoeColor",
     type: "texture",
     path: "textures/shoes_Base_Color.png",
+  },
+
+  // glasses
+  {
+    name: "glasses",
+    type: "gltfModel",
+    path: "models/glasses.glb",
   },
 ];

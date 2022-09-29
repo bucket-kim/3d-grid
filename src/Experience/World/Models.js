@@ -2,6 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
 export default class Models {
   constructor() {
@@ -28,9 +29,9 @@ export default class Models {
 
     this.baseColor = this.resources.items.shoeColor;
     this.baseColor.encoding = THREE.sRGBEncoding;
-    this.roughness = this.resources.items.coverMaskRoughness;
-    this.mentalness = this.resources.items.coverMaskMetalness;
-    this.normal = this.resources.items.coverMaskNormal;
+    this.roughness = this.resources.items.spidermanMaskRoughness;
+    this.mentalness = this.resources.items.spidermanMaskMetal;
+    this.normal = this.resources.items.spidermanMaskNormal;
     this.height = this.resources.items.spidermanMaskHeight;
 
     this.baseColor.flipY = false;
@@ -43,6 +44,13 @@ export default class Models {
     this.mentalness.wrapS = this.mentalness.wrapT = THREE.RepeatWrapping;
     this.normal.wrapS = this.normal.wrapT = THREE.RepeatWrapping;
 
+    this.hdrEquirect = new RGBELoader().load(
+      "textures/browPhotoStudio.hdr",
+      () => {
+        this.hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
+      }
+    );
+
     this.material = new THREE.MeshStandardMaterial({
       map: this.baseColor,
       metalnessMap: this.mentalness,
@@ -50,6 +58,16 @@ export default class Models {
       normalMap: this.normal,
       color: "#ffffff",
       // displacementMap: this.height,
+      transparent: true,
+    });
+
+    this.glassMat = new THREE.MeshPhysicalMaterial({
+      map: this.baseColor,
+      // metalnessMap: this.mentalness,
+      // roughnessMap: this.roughness,
+      // normalMap: this.normal,
+      envMap: this.hdrEquirect,
+      side: THREE.DoubleSide,
     });
 
     // console.log(this.textures);
@@ -58,7 +76,8 @@ export default class Models {
       let scale = 2;
 
       if (child instanceof THREE.Mesh) {
-        child.material = this.material;
+        // child.material = this.material;
+        child.material = this.glassMat;
 
         child.scale.set(scale, scale, scale);
         child.position.y = -2;
@@ -67,17 +86,6 @@ export default class Models {
         // child.rotation.y = Math.PI / 2;
 
         this.scene.add(child);
-
-        gsap.to(child.rotation, {
-          scrollTrigger: {
-            trigger: this.canvas,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-            toggleActions: "restart pause resume pause",
-          },
-          y: Math.PI * 2,
-        });
       }
     });
   }

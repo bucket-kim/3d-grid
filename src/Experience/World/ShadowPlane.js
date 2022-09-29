@@ -17,12 +17,12 @@ export default class ShadowPlane {
   }
 
   castShadow() {
-    this.plane = new THREE.PlaneGeometry(10, 10, 50, 50);
+    this.plane = new THREE.PlaneGeometry(50, 50, 100, 100);
 
     this.plane.rotateX(-Math.PI / 2);
 
     this.shadowMat = new THREE.ShadowMaterial();
-    this.shadowMat.opacity = 0.2;
+    this.shadowMat.opacity = 0.15;
     this.shadowMat.side = THREE.DoubleSide;
     // this.shadowMat.vi
 
