@@ -25,7 +25,7 @@ export default class Environment {
     this.areaProductLight = new THREE.RectAreaLight(0xffffff, 2, 20, 20);
 
     this.setEnvMap();
-    // this.productLighting();
+    this.productLighting();
     // this.setSculptureLight();
     this.lightSwitch();
   }
