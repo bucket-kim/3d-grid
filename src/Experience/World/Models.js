@@ -22,7 +22,8 @@ export default class Models {
     // this.scene.add(this.cube);
 
     this.model = {};
-    this.model.geometry = this.resources.items.sculpture.scene;
+    // this.model.geometry = this.resources.items.sculpture.scene;
+    this.model.geometry = this.resources.items.shoe.scene;
 
     this.baseColor = this.resources.items.shoeColor;
     this.baseColor.encoding = THREE.sRGBEncoding;
@@ -49,7 +50,7 @@ export default class Models {
     );
 
     this.material = new THREE.MeshStandardMaterial({
-      // map: this.baseColor,
+      map: this.baseColor,
       metalnessMap: this.metalness,
       roughnessMap: this.roughness,
       normalMap: this.normal,
@@ -66,6 +67,7 @@ export default class Models {
       if (child instanceof THREE.Mesh) {
         // child.material = this.material;
         child.material = this.material;
+        child.material.needsUpdate = true;
 
         child.scale.set(scale, scale, scale);
         child.position.y = -2;

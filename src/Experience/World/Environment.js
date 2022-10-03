@@ -9,14 +9,25 @@ export default class Environment {
     this.resources = this.experience.resources;
     this.debug = this.experience.debug;
 
-    // debug
-    if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("environment");
-    }
+    // sculpture
+    this.sculptureAreaLight = new THREE.RectAreaLight(0xffffff, 5, 5, 5);
+    this.spotSculptureLight = new THREE.SpotLight(
+      0xfffffff,
+      20,
+      35,
+      Math.PI * 0.1,
+      0.5,
+      1
+    );
+
+    // product
+    this.directionalProductLight = new THREE.DirectionalLight(0xffffff, 10);
+    this.areaProductLight = new THREE.RectAreaLight(0xffffff, 2, 20, 20);
 
     this.setEnvMap();
     // this.productLighting();
-    this.setSculptureLight();
+    // this.setSculptureLight();
+    this.lightSwitch();
   }
 
   setEnvMap() {
@@ -44,186 +55,75 @@ export default class Environment {
     };
 
     this.environmentMap.updateMaterial();
-
-    // debug
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.environmentMap, "intensity")
-        .name("envMapIntensity")
-        .min(0)
-        .max(5)
-        .step(0.001)
-        .onChange(this.environmentMap.updateMaterial);
-    }
   }
 
   setSculptureLight() {
-    this.areaLight = new THREE.RectAreaLight(0xffffff, 5, 5, 5);
-
-    this.helper = new RectAreaLightHelper(this.areaLight);
+    this.helper = new RectAreaLightHelper(this.sculptureAreaLight);
 
     // this.scene.add(this.helper);
-    this.areaLight.rotation.y = Math.PI;
-    this.areaLight.rotation.x = Math.PI * 0.25;
+    this.sculptureAreaLight.rotation.y = Math.PI;
+    this.sculptureAreaLight.rotation.x = Math.PI * 0.25;
 
-    this.areaLight.position.set(0, 6, -3.5);
+    this.sculptureAreaLight.position.set(0, 6, -3.5);
 
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.areaLight, "intensity")
-        .min(0)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "x")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "y")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "z")
-        .min(-20)
-        .max(10)
-        .step(0.001);
-    }
+    this.scene.add(this.sculptureAreaLight);
 
-    this.scene.add(this.areaLight);
+    this.spotSculptureLight.position.set(0, 6, 3);
+    this.spotSculptureLight.shadow.mapSize.width = 1024;
+    this.spotSculptureLight.shadow.mapSize.height = 1024;
 
-    this.spotLight = new THREE.SpotLight(
-      0xfffffff,
-      20,
-      35,
-      Math.PI * 0.1,
-      0.5,
-      1
-    );
+    this.spotSculptureLight.castShadow = true;
 
-    this.spotLight.position.set(0, 6, 3);
-    this.spotLight.shadow.mapSize.width = 1024;
-    this.spotLight.shadow.mapSize.height = 1024;
+    this.helper = new THREE.SpotLightHelper(this.spotSculptureLight);
 
-    this.spotLight.castShadow = true;
+    this.scene.add(this.spotSculptureLight.target);
+    this.scene.add(this.spotSculptureLight);
 
-    this.helper = new THREE.SpotLightHelper(this.spotLight);
-
-    this.scene.add(this.spotLight.target);
-    // this.scene.add(this.helper);
-    this.scene.add(this.spotLight);
-
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.spotLight.position, "y")
-        .name("spot light y")
-        .min(0)
-        .max(50)
-        .step(0.001);
-      this.debugFolder
-        .add(this.spotLight.position, "x")
-        .name("spot light x")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-
-      this.debugFolder
-        .add(this.spotLight.position, "z")
-        .name("spot light z")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-
-      this.debugFolder
-        .add(this.spotLight, "intensity")
-        .name("spot light intensity")
-        .min(0)
-        .max(50)
-        .step(0.001);
-    }
+    this.scene.remove(this.directionalProductLight);
+    this.scene.remove(this.areaProductLight);
   }
 
   productLighting() {
-    this.spotLight = new THREE.SpotLight(
-      0xfffffff,
-      25,
-      35,
-      Math.PI * 0.1,
-      0.5,
-      1
-    );
+    this.directionalProductLight.castShadow = true;
+    this.directionalProductLight.shadow.normalBias = 0.05;
 
-    this.spotLight.position.set(0, 6, 0);
-    this.spotLight.shadow.mapSize.width = 2048;
-    this.spotLight.shadow.mapSize.height = 2048;
+    this.directionalProductLight.position.set(0, 15, -4);
 
-    this.spotLight.castShadow = true;
+    this.scene.add(this.directionalProductLight);
 
-    this.helper = new THREE.SpotLightHelper(this.spotLight);
+    this.helper = new RectAreaLightHelper(this.areaProductLight);
 
-    // this.scene.add(this.spotLight);
-    this.scene.add(this.spotLight.target);
     // this.scene.add(this.helper);
+    this.areaProductLight.rotation.x = -Math.PI * 0.5;
+    this.areaProductLight.position.y = 9.5;
 
-    this.directionalLight = new THREE.DirectionalLight(0xffffff, 10);
-    this.directionalLight.castShadow = true;
-    this.directionalLight.shadow.normalBias = 0.05;
+    this.scene.add(this.areaProductLight);
 
-    this.directionalLight.position.set(0, 15, -4);
+    this.scene.remove(this.spotSculptureLight);
+    this.scene.remove(this.sculptureAreaLight);
+  }
 
-    this.scene.add(this.directionalLight);
-
+  lightSwitch() {
     if (this.debug.active) {
-      this.debugFolder
-        .add(this.directionalLight.position, "y")
-        .name("spot light y")
-        .min(0)
-        .max(50)
-        .step(0.001);
-      this.debugFolder
-        .add(this.directionalLight.position, "x")
-        .name("spot light x")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-
-      this.debugFolder
-        .add(this.directionalLight.position, "z")
-        .name("spot light z")
-        .min(-10)
-        .max(10)
-        .step(0.001);
-
-      this.debugFolder
-        .add(this.directionalLight, "intensity")
-        .name("spot light intensity")
-        .min(0)
-        .max(50)
-        .step(0.001);
+      this.debugFolder = this.debug.ui.addFolder("Lighting Choice");
+      this.debugFolder.closed = false;
     }
 
-    this.areaLight = new THREE.RectAreaLight(0xffffff, 2, 20, 20);
+    this.params = {
+      checkBox: true,
+    };
 
-    this.helper = new RectAreaLightHelper(this.areaLight);
-
-    // this.scene.add(this.helper);
-    this.areaLight.rotation.x = -Math.PI * 0.5;
-    this.areaLight.position.y = 9.5;
-
-    this.scene.add(this.areaLight);
-
-    if (this.debug.active) {
+    if (this.debugFolder) {
       this.debugFolder
-        .add(this.areaLight, "intensity")
-        .min(0)
-        .max(5)
-        .step(0.001);
-      this.debugFolder
-        .add(this.areaLight.position, "y")
-        .min(-10)
-        .max(20)
-        .step(0.001);
+        .add(this.params, "checkBox")
+        .name("product / sculpture")
+        .onChange((val) => {
+          if (val === true) {
+            this.productLighting();
+          } else {
+            this.setSculptureLight();
+          }
+        });
     }
   }
 }
