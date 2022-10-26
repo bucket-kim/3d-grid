@@ -28,7 +28,7 @@ export default class Camera {
       this.sizes.height / 2
     );
 
-    this.instance.position.set(0, 2.5, 10);
+    this.instance.position.set(0, 5, 10);
 
     // this.instance.enablepan = false;
 
@@ -74,6 +74,7 @@ export default class Camera {
 
   update() {
     this.controls.update();
+    console.log(this.instance.position);
     // this.target.x = (1 - this.mouse.x) * 0.002;
     // this.target.y = (1 - this.mouse.y) * 0.002;
 

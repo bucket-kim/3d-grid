@@ -23,7 +23,7 @@ export default class Models {
 
     this.model = {};
     // this.model.geometry = this.resources.items.sculpture.scene;
-    this.model.geometry = this.resources.items.shoe.scene;
+    this.model.geometry = this.resources.items.sculpture.scene;
 
     this.baseColor = this.resources.items.shoeColor;
     this.baseColor.encoding = THREE.sRGBEncoding;
@@ -70,7 +70,7 @@ export default class Models {
         child.material.needsUpdate = true;
 
         child.scale.set(scale, scale, scale);
-        child.position.y = -2;
+        child.position.y = -1;
 
         child.castShadow = true;
         // child.rotation.y = Math.PI / 2;
