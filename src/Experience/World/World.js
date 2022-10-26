@@ -26,7 +26,7 @@ export default class World {
       // this.gridbox = new Gridbox();
       this.models = new Models();
       this.shadowPlane = new ShadowPlane();
-      this.background = new Background();
+      // this.background = new Background();
     });
   }
 
