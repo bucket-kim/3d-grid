@@ -74,7 +74,6 @@ export default class Camera {
 
   update() {
     this.controls.update();
-    console.log(this.instance.position);
     // this.target.x = (1 - this.mouse.x) * 0.002;
     // this.target.y = (1 - this.mouse.y) * 0.002;
 
