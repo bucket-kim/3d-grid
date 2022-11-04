@@ -48,7 +48,7 @@ export default class Camera {
     this.controls.enableDamping = true;
     // this.controls.minPolarAngle = 0;
     // this.controls.maxPolarAngle = Math.PI * 0.5;
-    this.controls.enableZoom = false;
+    // this.controls.enableZoom = false;
 
     this.controls.minDistance = 5;
     this.controls.maxDistance = 15;
