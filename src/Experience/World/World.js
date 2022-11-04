@@ -25,14 +25,14 @@ export default class World {
       this.environment = new Environment();
       // this.gridbox = new Gridbox();
       this.models = new Models();
-      this.shadowPlane = new ShadowPlane();
+      // this.shadowPlane = new ShadowPlane();
       // this.background = new Background();
     });
   }
 
   update() {
-    if (this.gridbox) {
-      this.gridbox.update();
+    if (this.models) {
+      this.models.update();
     }
   }
 }

@@ -7,11 +7,12 @@ export default class Models {
     this.experience = new Experience();
     this.scene = this.experience.scene;
     this.resources = this.experience.resources;
+    this.time = this.experience.time;
 
     this.setModel();
   }
 
-  setModel(name) {
+  setModel() {
     this.cube = new THREE.Mesh(
       new THREE.BoxGeometry(2, 2, 2),
       new THREE.MeshStandardMaterial()
@@ -22,8 +23,9 @@ export default class Models {
     // this.scene.add(this.cube);
 
     this.model = {};
+
     // this.model.geometry = this.resources.items.sculpture.scene;
-    this.model.geometry = this.resources.items.sculpture.scene;
+    this.model.geometry = this.resources.items.sculpture.scene.children[0];
 
     this.baseColor = this.resources.items.shoeColor;
     this.baseColor.encoding = THREE.sRGBEncoding;
@@ -59,8 +61,6 @@ export default class Models {
       transparent: true,
     });
 
-    // console.log(this.textures);
-
     this.model.geometry.traverse((child) => {
       let scale = 2;
 
@@ -70,7 +70,7 @@ export default class Models {
         child.material.needsUpdate = true;
 
         child.scale.set(scale, scale, scale);
-        child.position.y = -1;
+        child.position.y = -1.5;
 
         child.castShadow = true;
         // child.rotation.y = Math.PI / 2;
@@ -78,5 +78,8 @@ export default class Models {
         this.scene.add(child);
       }
     });
+  }
+  update() {
+    this.model.geometry.rotation.y = this.time.elapsed * 0.0001;
   }
 }

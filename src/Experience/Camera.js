@@ -28,7 +28,7 @@ export default class Camera {
       this.sizes.height / 2
     );
 
-    this.instance.position.set(0, 5, 10);
+    this.instance.position.set(0.5, 2.5, 7);
 
     // this.instance.enablepan = false;
 
@@ -48,6 +48,7 @@ export default class Camera {
     this.controls.enableDamping = true;
     // this.controls.minPolarAngle = 0;
     // this.controls.maxPolarAngle = Math.PI * 0.5;
+    this.controls.enableZoom = false;
 
     this.controls.minDistance = 5;
     this.controls.maxDistance = 15;
