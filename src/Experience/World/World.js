@@ -34,5 +34,8 @@ export default class World {
     if (this.models) {
       this.models.update();
     }
+    if (this.gridbox) {
+      this.gridbox.update();
+    }
   }
 }
